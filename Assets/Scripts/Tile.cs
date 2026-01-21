@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Tile touched");
-            tileSound.pitch = Random.Range(0.8f, 1.2f);
+            tileSound.pitch = Random.Range(0.1f, 1.9f);
             tileSound.Play();
             hasBeenTouched = true;
         }
