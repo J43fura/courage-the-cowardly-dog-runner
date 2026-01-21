@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float forwardSpeed;
 
     private int desiredLane = 1; // 0: Left, 1: Middle, 2: Right
-    public float laneDistance = 4; // The distance between two lanes
+    public float laneDistance = 3; // The distance between two lanes
 	public float gravity = -20f;
 	public float jumpForce = 10f;
 
