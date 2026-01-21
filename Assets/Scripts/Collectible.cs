@@ -6,7 +6,15 @@ public class Collectible : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Destroy(this.gameObject);
+            if (gameObject.name.Contains("Bomb"))
+            {
+                GameUIManager.instance.LoseHeart();
+            }
+            else if (gameObject.name.Contains("Slab"))
+            {
+                GameUIManager.instance.AddSlab();
+            }
+            Destroy(gameObject);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
