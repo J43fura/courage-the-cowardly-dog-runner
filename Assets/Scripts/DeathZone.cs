@@ -12,7 +12,9 @@ public class DeathZone : MonoBehaviour
         if (other.tag == "Player")
         {
             deathSound.Play();
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameUIManager.instance.TriggerGameOver();
+
+            // GameObject player = GameObject.FindGameObjectWithTag("Player");
             // Destroy(player);
         }
     }
