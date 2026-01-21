@@ -8,7 +8,7 @@ public class TileManager : MonoBehaviour
     public GameObject tilePrefab;
 
     [Header("Tile Settings")]
-    public float tileWidth = 4f;
+    public float tileWidth = 3f;          // MATCH laneDistance
     public float minTileLength = 10f;
     public float maxTileLength = 10f;
     public int tilesOnScreen = 10;
@@ -16,7 +16,7 @@ public class TileManager : MonoBehaviour
     private float spawnZ = 0f;
     private List<GameObject> activeTiles = new List<GameObject>();
 
-    // Lane positions: Left (-1), Middle (0), Right (1)
+    // Lane positions: Left, Middle, Right (match PlayerController)
     private float[] lanes = { -1f, 0f, 1f };
 
     void Start()
@@ -42,18 +42,15 @@ public class TileManager : MonoBehaviour
         float lane = lanes[Random.Range(0, lanes.Length)];
 
         Vector3 spawnPosition = new Vector3(
-            lane * tileWidth,   // X (lane)
-            10f,                // Y fixed at 10
-            spawnZ              // Z forward
+            lane * tileWidth,   // now = -3, 0, +3
+            10f,                // same Y as player ground
+            spawnZ              // connected Z
         );
 
         GameObject tile = Instantiate(tilePrefab, spawnPosition, Quaternion.identity);
 
-        // Optional: scale length if needed
-        // tile.transform.localScale = new Vector3(1, 1, tileLength / 10f);
-
         activeTiles.Add(tile);
-        spawnZ += tileLength;
+        spawnZ += tileLength;  // seamless connection
     }
 
     void DeleteOldTile()

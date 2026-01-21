@@ -30,10 +30,10 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame && desiredLane > 0)
             desiredLane--;
 
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame && desiredLane > 0)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
             Jump();
 
-		if (Keyboard.current.downArrowKey.wasPressedThisFrame && desiredLane < 2)
+		if (Keyboard.current.downArrowKey.wasPressedThisFrame)
 			getDown();
 
 		Vector3 targetPosition = transform.position;
