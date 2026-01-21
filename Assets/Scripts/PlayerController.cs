@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private int desiredLane = 1; // 0: Left, 1: Middle, 2: Right
     public float laneDistance = 4; // The distance between two lanes
 	public float gravity = -20f;
+	public float jumpForce = 10f;
+
 	private float verticalVelocity;
 
 
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
 
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame && desiredLane > 0)
             desiredLane--;
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame && desiredLane > 0)
+            Jump();
+
+		if (Keyboard.current.downArrowKey.wasPressedThisFrame && desiredLane < 2)
+			getDown();
 
 		Vector3 targetPosition = transform.position;
 
@@ -63,4 +71,19 @@ public class PlayerController : MonoBehaviour
     {
         controller.Move(direction * Time.fixedDeltaTime);
     }
+    private void Jump()
+	{
+		if (controller.isGrounded)
+		{
+			verticalVelocity = jumpForce;
+		}
+	}
+
+	private void getDown()
+	{
+		if (!controller.isGrounded)
+		{
+			verticalVelocity = -jumpForce;
+		}
+	}
 }
