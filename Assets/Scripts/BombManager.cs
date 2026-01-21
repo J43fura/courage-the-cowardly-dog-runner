@@ -5,21 +5,20 @@ public class BombManager : MonoBehaviour
     [Header("References")]
     public GameObject bombPrefab;
     public Transform player;
+    public GameObject explosionEffect;
 
     [Header("Spawn Settings")]
-    public float minZDistance = 10f; // Min distance ahead of player to spawn
-    public float maxZDistance = 20f; // Max distance ahead of player to spawn
-    public float laneDistance = 3f;   // Distance between lanes (same as tiles)
-    public int lanes = 3;             // Number of lanes (0 = left, 1 = middle, 2 = right)
+    public float minZDistance = 10f;
+    public float maxZDistance = 20f;
+    public float laneDistance = 3f;
+    public int lanes = 3;
 
-    public float spawnInterval = 2f;  // How often bombs spawn
     private float lastSpawnZ = 0f;
 
     void Update()
     {
         if (player == null) return;
 
-        // Check if we should spawn a bomb ahead of the player
         if (player.position.z + maxZDistance > lastSpawnZ)
         {
             SpawnBomb();
@@ -28,18 +27,21 @@ public class BombManager : MonoBehaviour
 
     void SpawnBomb()
     {
-        // Choose a random lane
         int lane = Random.Range(0, lanes);
-
-        // Calculate spawn position
-        float xPos = (lane - 1) * laneDistance; // -1 = left, 0 = middle, 1 = right
+        float xPos = (lane - 1) * laneDistance;
         float zPos = lastSpawnZ + Random.Range(minZDistance, maxZDistance);
 
-        Vector3 spawnPos = new Vector3(xPos, 10.5f, zPos); // 0.5f height for bomb
+        Vector3 spawnPos = new Vector3(xPos, 12f, zPos);
 
-        Instantiate(bombPrefab, spawnPos, Quaternion.identity);
+        GameObject bomb = Instantiate(bombPrefab, spawnPos, Quaternion.identity);
 
-        lastSpawnZ = zPos; // Update last spawn position
+        // Assign explosion effect to bomb if it has Bomb script
+        Bomb bombScript = bomb.GetComponent<Bomb>();
+        if (bombScript != null && explosionEffect != null)
+        {
+            bombScript.explosionEffect = explosionEffect;
+        }
+
+        lastSpawnZ = zPos;
     }
 }
-
