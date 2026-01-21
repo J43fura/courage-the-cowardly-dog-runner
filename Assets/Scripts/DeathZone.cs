@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+    [SerializeField] private AudioSource deathSound;
+
     public Transform player;
     public float fixedYPosition = 0; // Set your desired fixed Y position
     
@@ -9,8 +11,9 @@ public class DeathZone : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            deathSound.Play();
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            Destroy(player);
+            // Destroy(player);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,7 +21,7 @@ public class DeathZone : MonoBehaviour
     {
         
     }
-    
+
     // Update is called once per frame
     void Update()
     {

@@ -11,7 +11,7 @@ public class TileManager : MonoBehaviour
     public float tileWidth = 3f;          // MATCH laneDistance
     public float minTileLength = 10f;
     public float maxTileLength = 10f;
-    public int tilesOnScreen = 10;
+    public int tilesOnScreen = 20;
 
     private float spawnZ = 0f;
     private List<GameObject> activeTiles = new List<GameObject>();

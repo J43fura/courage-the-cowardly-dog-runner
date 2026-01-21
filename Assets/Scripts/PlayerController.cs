@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 direction;
     public float forwardSpeed;
+	[SerializeField] private AudioSource jumpSound;
+
 
     private int desiredLane = 1; // 0: Left, 1: Middle, 2: Right
     public float laneDistance = 3; // The distance between two lanes
 	public float gravity = -20f;
-	public float jumpForce = 10f;
+	public float jumpForce = 8f;
+	public float fallMultiplier = 2.5f;   // faster fall
 
 	private float verticalVelocity;
 
@@ -24,10 +27,10 @@ public class PlayerController : MonoBehaviour
     {
         direction.z = forwardSpeed;
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame && desiredLane < 2)
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
 			desiredLane++;
 
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame && desiredLane > 0)
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
             desiredLane--;
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)
@@ -61,7 +64,12 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			verticalVelocity += gravity * Time.deltaTime;
+    	// Better gravity curve
+			if (verticalVelocity > 0)
+				verticalVelocity += gravity * Time.deltaTime;
+			else
+				verticalVelocity += gravity * fallMultiplier * Time.deltaTime;
+
 		}
 
 		direction.y = verticalVelocity;
@@ -76,6 +84,7 @@ public class PlayerController : MonoBehaviour
 		if (controller.isGrounded)
 		{
 			verticalVelocity = jumpForce;
+			jumpSound.Play();
 		}
 	}
 
@@ -83,7 +92,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!controller.isGrounded)
 		{
-			verticalVelocity = -jumpForce;
+			verticalVelocity = -2*jumpForce;
 		}
 	}
 }
