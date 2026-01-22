@@ -2041,7 +2041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 62126fe6e4183c64dbd2b0fe2886abe4, type: 3}
       propertyPath: m_Name
-      value: Tombstone_3_Unity
+      value: Tombstone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
