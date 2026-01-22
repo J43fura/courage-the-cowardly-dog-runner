@@ -11,21 +11,22 @@ public class GameUIManager : MonoBehaviour
     public int heartCount = 3;
     public int slabCount = 0;
     public float score = 0f;
-    public float bestScore = 0f; // Stores the highest score
+    public float bestScore = 0f;
 
     [Header("UI Elements")]
+    public GameObject heartIcon;
     public TextMeshProUGUI heartText;
     public TextMeshProUGUI slabText;
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI bestScoreText; // Optional display
+    public TextMeshProUGUI bestScoreText;
 
-    public GameObject gameOverScreen; // Assign in Inspector
+    public GameObject gameOverScreen;
 
     [Header("Fog Settings")]
-    public bool fogEnabled = false; // Toggle in Inspector or via code
+    public bool fogEnabled = false;
 
     [Header("Bomb Settings")]
-    public bool bombsEnabled = true; // Toggle bombs independently
+    public bool bombsEnabled = true;
 
     [ContextMenu("Reset Best Score")]
     public void ResetBestScore()
@@ -134,11 +135,16 @@ public class GameUIManager : MonoBehaviour
 
     void UpdateUI()
     {
-        if (this.AreBombsEnabled()) heartText.text = heartCount.ToString();
+        if (!AreBombsEnabled())
+        {
+            heartIcon.SetActive(false);
+            heartText.gameObject.SetActive(false);
+        }
+        else  heartText.text = heartCount.ToString();
+
         slabText.text = slabCount.ToString();
 
-        if (bestScoreText != null)
-            bestScoreText.text = Mathf.FloorToInt(bestScore).ToString();
+        bestScoreText.text = Mathf.FloorToInt(bestScore).ToString();
     }
 
     public void SetFog(bool enabled)
