@@ -3,7 +3,6 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private AudioSource tileSound;
-    private bool hasBeenTouched = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +11,6 @@ public class Tile : MonoBehaviour
             Debug.Log("Tile touched");
             tileSound.pitch = Random.Range(0.1f, 1.9f);
             tileSound.Play();
-            hasBeenTouched = true;
         }
     }
 }

@@ -22,10 +22,8 @@ public class GameUIManager : MonoBehaviour
 
     public GameObject gameOverScreen;
 
-    [Header("Fog Settings")]
+    [Header("Levels")]
     public bool fogEnabled = false;
-
-    [Header("Bomb Settings")]
     public bool bombsEnabled = true;
 
     [ContextMenu("Reset Best Score")]
