@@ -29,7 +29,7 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        if (player.position.z + 40f > spawnZ)
+        if (player.position.z + 80f > spawnZ)
         {
             SpawnTile();
             DeleteOldTile();
