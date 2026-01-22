@@ -19,6 +19,8 @@ public class BombManager : MonoBehaviour
 
     void Update()
     {
+        if (!GameUIManager.instance.AreBombsEnabled()) return;
+
         if (player == null) return;
 
         if (player.position.z + maxZDistance > lastSpawnZ + minSpawnGap)
