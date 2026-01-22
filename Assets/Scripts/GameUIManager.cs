@@ -7,15 +7,20 @@ public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager instance;
 
+    [Header("Player Stats")]
     public int heartCount = 3;
     public int slabCount = 0;
     public float score = 0f;
 
+    [Header("UI Elements")]
     public TextMeshProUGUI heartText;
     public TextMeshProUGUI slabText;
     public TextMeshProUGUI scoreText;
 
     public GameObject gameOverScreen; // Assign in Inspector
+
+    [Header("Fog Settings")]
+    public bool fogEnabled = false; // Toggle in Inspector or via code
 
     private bool isGameOver = false;
     private Transform player;
@@ -34,6 +39,7 @@ public class GameUIManager : MonoBehaviour
             gameOverScreen.SetActive(false); // Ensure it is hidden at start
 
         UpdateUI();
+        ApplyFog(); // Set fog at start based on fogEnabled
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -97,5 +103,15 @@ public class GameUIManager : MonoBehaviour
     {
         heartText.text = heartCount.ToString();
         slabText.text = slabCount.ToString();
+    }
+    public void SetFog(bool enabled)
+    {
+        fogEnabled = enabled;
+        ApplyFog();
+    }
+
+    private void ApplyFog()
+    {
+        RenderSettings.fog = fogEnabled;
     }
 }

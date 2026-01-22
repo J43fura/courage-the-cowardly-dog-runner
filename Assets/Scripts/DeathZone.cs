@@ -13,9 +13,6 @@ public class DeathZone : MonoBehaviour
         {
             deathSound.Play();
             GameUIManager.instance.TriggerGameOver();
-
-            // GameObject player = GameObject.FindGameObjectWithTag("Player");
-            // Destroy(player);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
